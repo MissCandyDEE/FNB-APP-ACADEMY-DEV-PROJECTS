@@ -141,7 +141,7 @@ Through these projects, I'm demonstrating skills in:
 - ✅ Create individual repositories for main projects
 - ✅ Build personal portfolio website
 
-### Soon (December 2024):
+### Soon (December 2025):
 - 📚 Learn React.js fundamentals
 - 🔌 Integrate APIs into projects
 - 💾 Add database functionality
