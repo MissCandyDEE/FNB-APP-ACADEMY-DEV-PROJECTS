@@ -1,6 +1,6 @@
 # 🚀 FNB App Academy - Development Projects
 
-Welcome to my coding portfolio! This repository showcases the projects I've built during the FNB App Academy program.
+Welcome to my coding portfolio! This repository showcases the projects I've built during the FNB App Academy program...
 
 ![Status](https://img.shields.io/badge/Status-Enhancing-yellow)
 ![Projects](https://img.shields.io/badge/Projects-5-blue)
