@@ -19,8 +19,6 @@ I'm currently reorganizing and improving all projects with:
 - ✅ Live demos and screenshots
 - ✅ Responsive mobile-first design
 
-**Timeline:** Completing all enhancements by December 2025.
-
 ---
 
 ## 📂 Projects Overview
