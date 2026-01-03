@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DinkyCorner | Pedicure Spa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav>
+        <div class="logo">DINKY<span>CORNER</span></div>
+        <div class="nav-links">
+            <a href="/">Back to Portfolio</a>
+            <div class="cart-indicator">
+                🛒 Selection: <span id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="spa-hero">
+        <h1 class="gold-text">Elegant Pedicure Services</h1>
+        <p>Serving Strand • Somerset West • Gordon's Bay</p>
+    </header>
+
+    <main class="service-container">
+        
+        <div class="service-card">
+            <div class="card-badge">Most Popular</div>
+            <h3>In-Studio Pedicure</h3>
+            <p class="description">Visit my professional home-studio for a relaxing, high-end treatment.</p>
+            <div class="price-tag">R 250</div>
+            <button class="btn" onclick="addToCart('studio')">Add to Selection</button>
+        </div>
+
+        <div class="service-card">
+            <h3>House Call Spa</h3>
+            <p class="description">Luxury pedicure service in the comfort of your own home.</p>
+            <div class="price-tag">R 400</div>
+            <button class="btn" onclick="addToCart('house_call')">Add to Selection</button>
+        </div>
+
+    </main>
+
+    <section class="cart-summary">
+        <h2>Your Booking Summary</h2>
+        <div id="cart-items-list">
+            <p>No services selected yet.</p>
+        </div>
+        <div class="total-bar">
+            <strong>Total Amount: R <span id="total-price">0</span></strong>
+        </div>
+        <button class="checkout-btn" onclick="confirmBooking()">Confirm Appointment Request</button>
+    </section>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

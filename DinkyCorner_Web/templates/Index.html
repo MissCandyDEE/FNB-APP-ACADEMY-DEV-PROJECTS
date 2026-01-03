@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DinkyCorner | Boutique & Spa</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">DINKY<span>CORNER</span></div>
+        <ul class="nav-links">
+            <li><a href="#portfolio">Projects</a></li>
+            <li><a href="#spa">Pedicure Spa</a></li>
+            <li><a href="#cart">Cart (<span id="cart-count">0</span>)</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>Elegance in Every Step</h1>
+        <p>Professional Pedicure Specialist & Developer</p>
+    </header>
+
+    <section id="portfolio" class="section">
+        <h2 class="title">My Tech Projects</h2>
+        <div class="grid">
+            <div class="card" onclick="location.href='../Advanced-Calculator-App/index.html'">
+                <h3>🔢 Advanced Calculator</h3>
+                <p>High-precision logic app.</p>
+            </div>
+            <div class="card" onclick="location.href='../Avengers-Character-Bios-App/index.html'">
+                <h3>🛡️ Avengers Bios</h3>
+                <p>Interactive character database.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="spa" class="section">
+        <h2 class="title">Luxury Pedicure Services</h2>
+        <p class="subtitle">Serving Strand • Somerset West • Gordon's Bay</p>
+        
+        <div class="service-container">
+            <div class="service-card">
+                <h3>In-Studio Pedicure</h3>
+                <p class="price">R 250</p>
+                <p>Relaxing treatment at my studio.</p>
+                <button class="btn" onclick="addToCart('In-Studio Pedicure', 250)">Add to Cart</button>
+            </div>
+
+            <div class="service-card">
+                <h3>House Call Spa</h3>
+                <p class="price">R 400</p>
+                <p>Full spa experience at your home.</p>
+                <button class="btn" onclick="addToCart('House Call House', 400)">Add to Cart</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="cart" class="cart-section">
+        <h3>Your Selection</h3>
+        <div id="cart-items">
+            <p>Your cart is empty.</p>
+        </div>
+        <div class="total">Total: R <span id="total-price">0</span></div>
+        <button class="checkout-btn" onclick="alert('Thank you! I will contact you for your booking.')">Confirm Booking</button>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
