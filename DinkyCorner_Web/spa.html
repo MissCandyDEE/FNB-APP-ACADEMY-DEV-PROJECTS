@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DinkyCorner | Pedicure Spa</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html" class="back-btn">← Back to Portfolio</a>
+        <div class="cart-status">Items: <span id="cart-count">0</span></div>
+    </nav>
+
+    <section class="spa-content">
+        <h2 class="gold-text">Elegant Pedicure Services</h2>
+        <p>Serving Strand, Somerset West, & Gordon's Bay</p>
+
+        <div class="service-list">
+            <div class="service-item">
+                <h3>In-Studio Pedicure</h3>
+                <p>Visit my space for a professional treatment.</p>
+                <span class="price">R 250</span>
+                <button onclick="addToCart('In-Studio', 250)">Add to Cart</button>
+            </div>
+
+            <div class="service-item">
+                <h3>House Call Spa</h3>
+                <p>Luxury treatment in the comfort of your home.</p>
+                <span class="price">R 400</span>
+                <button onclick="addToCart('House Call', 400)">Add to Cart</button>
+            </div>
+        </div>
+
+        <div id="shopping-cart" class="hidden">
+            <h3>Your Selection</h3>
+            <div id="items"></div>
+            <hr>
+            <p>Total: R <span id="total">0</span></p>
+            <button class="checkout" onclick="confirmBooking()">Request Booking</button>
+        </div>
+    </section>
+    <script src="script.js"></script>
+</body>
+</html>
