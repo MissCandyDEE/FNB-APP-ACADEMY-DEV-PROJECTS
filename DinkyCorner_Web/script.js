@@ -1,4 +1,4 @@
-// This handles your Pedicure Business Logic
+// This handles my Pedicure Business Logic
 let cart = [];
 let total = 0;
 
