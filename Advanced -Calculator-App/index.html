@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Title</title>
-        <link rel="stylesheet" type="text/css" href="style.css">
-    </head>
-    <body>
-        <h1 id="heading1"></h1>
-        <p id="paragraph1"></p>
-        <p id="paragraph2"></p>
-        
-        <script>
-            var text1;
-            var text2;
-            var text3;
-            
-            var numA=7;
-            var numB=10;
-            
-            
-            text1="Hello everyone on planet Earth";
-            text2="I love learning JS";
-            text3=" JS is awesome!";
-            
-            document.getElementById("heading1").innerHTML= (text1);
-            document.getElementById("paragraph1").innerHTML= (text2 + text3);                       
-            document.getElementById("paragraph2").innerHTML=(numA + " X " + numB + " = " + numA*numB);
-        </script>
-    </body>
+<html>
+<head>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        .calc-box { max-width: 350px; margin: 100px auto; background: white; border: 1px solid var(--border); padding: 40px; }
+        .display { font-size: 3rem; text-align: right; font-weight: 300; margin-bottom: 40px; border-bottom: 1px solid var(--border); }
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        button { background: none; border: none; font-family: var(--sans); font-size: 1rem; cursor: pointer; padding: 15px; }
+        .op { color: var(--gold); font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="calc-box">
+        <div class="display" id="res">0</div>
+        <div class="grid">
+            <button onclick="c()" class="op">AC</button>
+            <button onclick="p('/')" class="op">/</button>
+            <button onclick="p('*')" class="op">×</button>
+            <button onclick="p('7')">7</button>
+            <button onclick="p('8')">8</button>
+            <button onclick="p('9')">9</button>
+            <button onclick="p('-')" class="op">-</button>
+            <button onclick="p('4')">4</button>
+            <button onclick="p('5')">5</button>
+            <button onclick="p('6')">6</button>
+            <button onclick="p('+')" class="op">+</button>
+            <button onclick="p('1')">1</button>
+            <button onclick="p('2')">2</button>
+            <button onclick="p('3')">3</button>
+            <button onclick="e()" style="grid-column: span 2; background: var(--charcoal); color: white;">=</button>
+            <button onclick="p('0')" style="grid-column: span 2;">0</button>
+        </div>
+    </div>
+    <script>
+        let r = document.getElementById('res');
+        function p(v){ if(r.innerText=='0') r.innerText=v; else r.innerText+=v; }
+        function c(){ r.innerText='0'; }
+        function e(){ try{ r.innerText=eval(r.innerText); }catch{ r.innerText="Error"; }}
+    </script>
+</body>
 </html>
