@@ -1,21 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" href="../style.css">
+    <style>
+        .spa-container { display: grid; grid-template-columns: 1fr 350px; gap: 40px; padding: 60px 8%; }
+        .treatment-card { border-bottom: 1px solid var(--border); padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
+        .cart-box { background: white; border: 1px solid var(--border); padding: 30px; position: sticky; top: 20px; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0 20px; border: 1px solid var(--border); font-family: var(--sans); }
+    </style>
 </head>
 <body>
-    <header style="text-align: center; padding: 120px 8%;">
-        <h1 style="font-family: var(--serif); font-size: 3.5rem;">DinkyCorner Spa</h1>
-        <p style="letter-spacing: 4px; text-transform: uppercase; font-size: 0.8rem;">The Pedicure Collection</p>
-    </header>
-    <div style="max-width: 800px; margin: 0 auto; padding-bottom: 100px;">
-        <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding: 30px 0;">
-            <div>
-                <h3 style="font-family: var(--serif); margin: 0;">Kemet Gold Ritual</h3>
-                <p style="font-size: 0.9rem; color: #777;">Ancient Egyptian vessel healing with luxury oils.</p>
+    <div style="padding: 40px 8%;">
+        <a href="../index.html" style="text-decoration: none; color: var(--gold); font-size: 0.8rem;">← BACK TO DOSSIER</a>
+        <h1 style="font-family: var(--serif); font-size: 3rem;">DinkyCorner Spa</h1>
+    </div>
+
+    <div class="spa-container">
+        <div class="treatments">
+            <div class="treatment-card">
+                <div>
+                    <h3>Royal Pedicure</h3>
+                    <p>60 Minutes of deep vessel healing.</p>
+                </div>
+                <button onclick="addToCart('Royal Pedicure', 400)" class="btn-lux">Add R400</button>
             </div>
-            <div style="font-family: var(--serif); font-size: 1.2rem;">R 450</div>
+            <div class="treatment-card">
+                <div>
+                    <h3>Kemet Gold Facial</h3>
+                    <p>Ancient Egyptian luxury oil treatment.</p>
+                </div>
+                <button onclick="addToCart('Kemet Gold Facial', 650)" class="btn-lux">Add R650</button>
+            </div>
+        </div>
+
+        <div class="cart-box">
+            <h3 style="font-family: var(--serif);">Your Rituals</h3>
+            <div id="cart-items" style="font-size: 0.9rem; margin-bottom: 20px;">Cart is empty</div>
+            <hr>
+            <label>Select Date & Time</label>
+            <input type="datetime-local" id="booking-time">
+            <button class="btn-lux" style="width: 100%; background: var(--charcoal); color: white;" onclick="confirmBooking()">Confirm Appointment</button>
         </div>
     </div>
+
+    <script>
+        let cart = [];
+        function addToCart(name, price) {
+            cart.push({name, price});
+            renderCart();
+        }
+        function renderCart() {
+            const container = document.getElementById('cart-items');
+            if(cart.length === 0) return;
+            container.innerHTML = cart.map(item => `<div>${item.name} - R${item.price}</div>`).join('');
+        }
+        function confirmBooking() {
+            const time = document.getElementById('booking-time').value;
+            if(!time || cart.length === 0) return alert("Please select a ritual and time.");
+            alert(`Confirmed! Your ${cart[0].name} is set for ${time}.`);
+        }
+    </script>
 </body>
 </html>
