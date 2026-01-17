@@ -1,42 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="../style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <style>
-        .calc-box { max-width: 350px; margin: 100px auto; background: white; border: 1px solid var(--border); padding: 40px; }
-        .display { font-size: 3rem; text-align: right; font-weight: 300; margin-bottom: 40px; border-bottom: 1px solid var(--border); }
-        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        button { background: none; border: none; font-family: var(--sans); font-size: 1rem; cursor: pointer; padding: 15px; }
-        .op { color: var(--gold); font-weight: 600; }
+        :root { --gold: #C5A059; --dark: #1a1a1a; --gray: #2c2c2c; }
+        body { background: #000; color: #eee; font-family: 'Inter', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        .sidebar { width: 280px; background: var(--dark); border-right: 2px solid var(--gold); padding: 25px; display: flex; flex-direction: column; }
+        .nav-btn { padding: 12px; margin-bottom: 8px; background: #252525; border: 1px solid #444; color: #aaa; cursor: pointer; text-align: left; transition: 0.3s; }
+        .nav-btn:hover, .active { background: var(--gold); color: var(--dark); font-weight: bold; border-color: var(--gold); }
+        .main { flex: 1; padding: 40px; overflow-y: auto; background: linear-gradient(135deg, #111 0%, #000 100%); }
+        .terminal { background: #1a1a1a; border-left: 4px solid var(--gold); padding: 20px; font-family: 'Consolas', monospace; color: #00ff00; margin-top: 20px; min-height: 200px; white-space: pre-wrap; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .calc-ui { width: 300px; background: #222; padding: 20px; border-radius: 10px; border: 1px solid #444; margin-bottom: 20px; }
+        .screen { background: #000; color: var(--gold); padding: 15px; text-align: right; font-size: 1.5rem; margin-bottom: 10px; border-radius: 4px; border: 1px solid var(--gold); }
     </style>
 </head>
 <body>
-    <div class="calc-box">
-        <div class="display" id="res">0</div>
-        <div class="grid">
-            <button onclick="c()" class="op">AC</button>
-            <button onclick="p('/')" class="op">/</button>
-            <button onclick="p('*')" class="op">×</button>
-            <button onclick="p('7')">7</button>
-            <button onclick="p('8')">8</button>
-            <button onclick="p('9')">9</button>
-            <button onclick="p('-')" class="op">-</button>
-            <button onclick="p('4')">4</button>
-            <button onclick="p('5')">5</button>
-            <button onclick="p('6')">6</button>
-            <button onclick="p('+')" class="op">+</button>
-            <button onclick="p('1')">1</button>
-            <button onclick="p('2')">2</button>
-            <button onclick="p('3')">3</button>
-            <button onclick="e()" style="grid-column: span 2; background: var(--charcoal); color: white;">=</button>
-            <button onclick="p('0')" style="grid-column: span 2;">0</button>
-        </div>
+
+    <div class="sidebar">
+        <h2 style="color: var(--gold); font-size: 1rem; letter-spacing: 2px;">DEV CONSOLE</h2>
+        <p style="font-size: 0.7rem; color: #666; margin-bottom: 20px;">FNB APP ACADEMY / ALX</p>
+        <button class="nav-btn active" onclick="runModule('calc')">Advanced Calculator</button>
+        <button class="nav-btn" onclick="runModule('scope')">Variable Scope Lab</button>
+        <button class="nav-btn" onclick="runModule('strings')">String/Number Engine</button>
+        <button class="nav-btn" onclick="runModule('auth')">Auth & Password Logic</button>
+        <button class="nav-btn" onclick="runModule('switch')">Switch Case Router</button>
+        <div style="margin-top: auto;"><a href="../index.html" style="color: var(--gold); text-decoration: none; font-size: 0.8rem;">← MASTER HUB</a></div>
     </div>
+
+    <div class="main">
+        <div id="calc-interface">
+            <h2 id="mod-title" style="color: var(--gold);">Advanced Calculator</h2>
+            <div class="calc-ui">
+                <div class="screen" id="display">0</div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
+                    <button onclick="press('7')" style="padding:15px;">7</button><button onclick="press('8')" style="padding:15px;">8</button><button onclick="press('9')" style="padding:15px;">9</button><button onclick="press('/')" style="background:var(--gold)">/</button>
+                    <button onclick="press('4')" style="padding:15px;">4</button><button onclick="press('5')" style="padding:15px;">5</button><button onclick="press('6')" style="padding:15px;">6</button><button onclick="press('*')" style="background:var(--gold)">×</button>
+                    <button onclick="press('1')" style="padding:15px;">1</button><button onclick="press('2')" style="padding:15px;">2</button><button onclick="press('3')" style="padding:15px;">3</button><button onclick="press('-')" style="background:var(--gold)">-</button>
+                    <button onclick="clr()" style="background:#8e2121; color:white;">C</button><button onclick="press('0')">0</button><button onclick="eq()" style="background:var(--gold); grid-column: span 2;">=</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="terminal-out" class="terminal">> System ready. Select a module to verify logic...</div>
+    </div>
+
     <script>
-        let r = document.getElementById('res');
-        function p(v){ if(r.innerText=='0') r.innerText=v; else r.innerText+=v; }
-        function c(){ r.innerText='0'; }
-        function e(){ try{ r.innerText=eval(r.innerText); }catch{ r.innerText="Error"; }}
+        // 1. Calculator Logic
+        let cur = "";
+        function press(v) { cur += v; document.getElementById('display').innerText = cur; }
+        function clr() { cur = ""; document.getElementById('display').innerText = "0"; }
+        function eq() { try { cur = eval(cur).toString(); document.getElementById('display').innerText = cur; } catch { clr(); } }
+
+        // 2. Integrated Module Logic (Everything from your separate files)
+        const modules = {
+            scope: () => {
+                let localVal = "I am Local";
+                return `[VARIABLE SCOPE LOGIC]\nGlobal Scope: Accessible\nLocal Scope: ${localVal}\nStatus: Block-level scoping verified using 'let'.`;
+            },
+            strings: () => {
+                let str = "ALX-Dossier-2024";
+                return `[STRING & NUMBER ENGINE]\nInput: ${str}\nLength: ${str.length}\nUppercase: ${str.toUpperCase()}\nParsing: ${parseInt("100") + 50} (String '100' + 50 as Number)`;
+            },
+            auth: () => {
+                let pass = "admin123";
+                let valid = pass.length > 5 ? "SECURE" : "WEAK";
+                return `[AUTH & PASSWORD LOGIC]\nChecking password: ${pass}\nValidation: ${valid}\nResult: Access Granted via password.html logic.`;
+            },
+            switch: () => {
+                let role = "Analyst";
+                let access;
+                switch(role) {
+                    case "Admin": access = "Full"; break;
+                    case "Analyst": access = "Data Only"; break;
+                    default: access = "Restricted";
+                }
+                return `[SWITCH CASE ROUTER]\nUser Role: ${role}\nPermission Level: ${access}\nPath: Routing to ${role} dashboard...`;
+            }
+        };
+
+        function runModule(key) {
+            const out = document.getElementById('terminal-out');
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if(key === 'calc') {
+                out.innerText = "> Calculator Mode Active.";
+                document.getElementById('mod-title').innerText = "Advanced Calculator";
+            } else {
+                out.innerText = "> " + modules[key]();
+                document.getElementById('mod-title').innerText = key.toUpperCase() + " LOGIC MODULE";
+            }
+        }
     </script>
 </body>
 </html>

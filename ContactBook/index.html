@@ -1,25 +1,105 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="../style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <style>
-        .contact-container { max-width: 600px; margin: 100px auto; }
-        input { width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid var(--border); background: transparent; }
-        .contact-item { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; }
+        :root { --gold: #C5A059; --dark: #1a1a1a; }
+        body { font-family: 'Inter', sans-serif; background: #000; color: white; margin: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .app-container { width: 400px; background: var(--dark); border: 1px solid var(--gold); border-radius: 12px; padding: 30px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .view { display: none; }
+        .active-view { display: block; }
+        input { width: 100%; padding: 12px; margin: 10px 0; background: #222; border: 1px solid #444; color: white; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; background: var(--gold); border: none; font-weight: bold; cursor: pointer; border-radius: 4px; transition: 0.3s; }
+        button:hover { background: #b08e4d; }
+        .contact-item { border-bottom: 1px solid #333; padding: 10px 0; display: flex; justify-content: space-between; }
     </style>
 </head>
 <body>
-    <div class="contact-container">
-        <h2 style="font-family: var(--serif); text-align: center; font-size: 2.5rem;">Nexus Directory</h2>
-        <input type="text" placeholder="Name">
-        <input type="text" placeholder="Phone">
-        <button class="btn-lux" style="width: 100%;">Add to Registry</button>
-        <div id="list" style="margin-top: 50px;">
-            <div class="contact-item">
-                <span>Jane Smith</span>
-                <span style="color: var(--gold);">+27 60 744 6370</span>
-            </div>
-        </div>
+
+<div class="app-container">
+    <div id="view-api" class="view active-view">
+        <h2 style="color: var(--gold);">Secure Access</h2>
+        <p style="font-size: 0.8rem; color: #888;">Enter your API Key to initialize the contact engine.</p>
+        <input type="password" id="api-input" placeholder="Enter API Key...">
+        <button onclick="saveKey()">INITIALIZE SYSTEM</button>
     </div>
+
+    <div id="view-list" class="view">
+        <h2 style="color: var(--gold);">Contacts</h2>
+        <div id="contact-list" style="max-height: 200px; overflow-y: auto; margin-bottom: 20px;">
+            <p style="color: #666; font-style: italic;">No contacts found in ledger.</p>
+        </div>
+        <button onclick="switchView('view-add')" style="background: transparent; border: 1px solid var(--gold); color: var(--gold);">+ ADD NEW CONTACT</button>
+        <button onclick="switchView('view-api')" style="margin-top: 10px; font-size: 0.7rem; background: none; color: #444;">RESET API KEY</button>
+    </div>
+
+    <div id="view-add" class="view">
+        <h2 style="color: var(--gold);">New Entry</h2>
+        <input type="text" id="name-input" placeholder="Full Name">
+        <input type="email" id="email-input" placeholder="Email Address">
+        <input type="tel" id="phone-input" placeholder="Phone Number">
+        <button onclick="addContact()">SAVE TO CLOUD</button>
+        <button onclick="switchView('view-list')" style="margin-top: 10px; background: none; color: #888;">CANCEL</button>
+    </div>
+</div>
+
+<script>
+    let apiKey = "";
+    let contacts = [
+        { name: "FNB App Academy", email: "support@fnb.co.za", phone: "0800-FNB-DEV" }
+    ];
+
+    function switchView(viewId) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active-view'));
+        document.getElementById(viewId).classList.add('active-view');
+    }
+
+    function saveKey() {
+        const val = document.getElementById('api-input').value;
+        if (val.length > 5) {
+            apiKey = val; // Now stored in memory for the session
+            console.log("System Initialized with Key: " + apiKey);
+            renderContacts();
+            switchView('view-list');
+        } else {
+            alert("Invalid API Key. System locked.");
+        }
+    }
+
+    function addContact() {
+        const name = document.getElementById('name-input').value;
+        const email = document.getElementById('email-input').value;
+        const phone = document.getElementById('phone-input').value;
+
+        if (name && email) {
+            contacts.push({ name, email, phone });
+            renderContacts();
+            switchView('view-list');
+            // Reset inputs
+            document.getElementById('name-input').value = "";
+            document.getElementById('email-input').value = "";
+            document.getElementById('phone-input').value = "";
+        }
+    }
+
+    function renderContacts() {
+        const list = document.getElementById('contact-list');
+        if (contacts.length === 0) {
+            list.innerHTML = `<p style="color: #666; font-style: italic;">No contacts found.</p>`;
+            return;
+        }
+        list.innerHTML = contacts.map(c => `
+            <div class="contact-item">
+                <div>
+                    <div style="font-weight:bold;">${c.name}</div>
+                    <div style="font-size: 0.7rem; color: #888;">${c.email}</div>
+                </div>
+                <div style="color: var(--gold); font-size: 0.8rem;">${c.phone}</div>
+            </div>
+        `).join('');
+    }
+</script>
 </body>
 </html>
