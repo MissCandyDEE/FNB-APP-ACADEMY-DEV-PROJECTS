@@ -3,18 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Engineering Console</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        :root { --gold: #C5A059; --dark: #1a1a1a; --gray: #2c2c2c; }
-        body { background: #000; color: #eee; font-family: 'Inter', sans-serif; margin: 0; display: flex; height: 100vh; overflow: hidden; }
-        .sidebar { width: 280px; background: var(--dark); border-right: 2px solid var(--gold); padding: 25px; display: flex; flex-direction: column; }
-        .nav-btn { padding: 12px; margin-bottom: 8px; background: #252525; border: 1px solid #444; color: #aaa; cursor: pointer; text-align: left; transition: 0.3s; }
-        .nav-btn:hover, .active { background: var(--gold); color: var(--dark); font-weight: bold; border-color: var(--gold); }
-        .main { flex: 1; padding: 40px; overflow-y: auto; background: linear-gradient(135deg, #111 0%, #000 100%); }
-        .terminal { background: #1a1a1a; border-left: 4px solid var(--gold); padding: 20px; font-family: 'Consolas', monospace; color: #00ff00; margin-top: 20px; min-height: 200px; white-space: pre-wrap; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .calc-ui { width: 300px; background: #222; padding: 20px; border-radius: 10px; border: 1px solid #444; margin-bottom: 20px; }
-        .screen { background: #000; color: var(--gold); padding: 15px; text-align: right; font-size: 1.5rem; margin-bottom: 10px; border-radius: 4px; border: 1px solid var(--gold); }
-    </style>
 </head>
 <body>
 
@@ -34,65 +24,37 @@
             <h2 id="mod-title" style="color: var(--gold);">Advanced Calculator</h2>
             <div class="calc-ui">
                 <div class="screen" id="display">0</div>
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;">
-                    <button onclick="press('7')" style="padding:15px;">7</button><button onclick="press('8')" style="padding:15px;">8</button><button onclick="press('9')" style="padding:15px;">9</button><button onclick="press('/')" style="background:var(--gold)">/</button>
-                    <button onclick="press('4')" style="padding:15px;">4</button><button onclick="press('5')" style="padding:15px;">5</button><button onclick="press('6')" style="padding:15px;">6</button><button onclick="press('*')" style="background:var(--gold)">×</button>
-                    <button onclick="press('1')" style="padding:15px;">1</button><button onclick="press('2')" style="padding:15px;">2</button><button onclick="press('3')" style="padding:15px;">3</button><button onclick="press('-')" style="background:var(--gold)">-</button>
-                    <button onclick="clr()" style="background:#8e2121; color:white;">C</button><button onclick="press('0')">0</button><button onclick="eq()" style="background:var(--gold); grid-column: span 2;">=</button>
+                <div class="calc-grid">
+                    <button class="calc-btn" onclick="press('7')">7</button>
+                    <button class="calc-btn" onclick="press('8')">8</button>
+                    <button class="calc-btn" onclick="press('9')">9</button>
+                    <button class="calc-btn op" onclick="press('/')">/</button>
+                    
+                    <button class="calc-btn" onclick="press('4')">4</button>
+                    <button class="calc-btn" onclick="press('5')">5</button>
+                    <button class="calc-btn" onclick="press('6')">6</button>
+                    <button class="calc-btn op" onclick="press('*')">×</button>
+                    
+                    <button class="calc-btn" onclick="press('1')">1</button>
+                    <button class="calc-btn" onclick="press('2')">2</button>
+                    <button class="calc-btn" onclick="press('3')">3</button>
+                    <button class="calc-btn op" onclick="press('-')">-</button>
+                    
+                    <button class="calc-btn clr" onclick="clr()">C</button>
+                    <button class="calc-btn" onclick="press('0')">0</button>
+                    <button class="calc-btn op wide" onclick="eq()">=</button>
                 </div>
             </div>
         </div>
 
         <div id="terminal-out" class="terminal">> System ready. Select a module to verify logic...</div>
+        
+        <div id="history-panel" style="margin-top: 20px;">
+            <h3 style="color: var(--gold); font-size: 0.8rem;">RECENT CALCULATIONS</h3>
+            <ul id="history-list" style="list-style: none; padding: 0; font-size: 0.8rem; color: #888;"></ul>
+        </div>
     </div>
 
-    <script>
-        // 1. Calculator Logic
-        let cur = "";
-        function press(v) { cur += v; document.getElementById('display').innerText = cur; }
-        function clr() { cur = ""; document.getElementById('display').innerText = "0"; }
-        function eq() { try { cur = eval(cur).toString(); document.getElementById('display').innerText = cur; } catch { clr(); } }
-
-        // 2. Integrated Module Logic (Everything from your separate files)
-        const modules = {
-            scope: () => {
-                let localVal = "I am Local";
-                return `[VARIABLE SCOPE LOGIC]\nGlobal Scope: Accessible\nLocal Scope: ${localVal}\nStatus: Block-level scoping verified using 'let'.`;
-            },
-            strings: () => {
-                let str = "ALX-Dossier-2024";
-                return `[STRING & NUMBER ENGINE]\nInput: ${str}\nLength: ${str.length}\nUppercase: ${str.toUpperCase()}\nParsing: ${parseInt("100") + 50} (String '100' + 50 as Number)`;
-            },
-            auth: () => {
-                let pass = "admin123";
-                let valid = pass.length > 5 ? "SECURE" : "WEAK";
-                return `[AUTH & PASSWORD LOGIC]\nChecking password: ${pass}\nValidation: ${valid}\nResult: Access Granted via password.html logic.`;
-            },
-            switch: () => {
-                let role = "Analyst";
-                let access;
-                switch(role) {
-                    case "Admin": access = "Full"; break;
-                    case "Analyst": access = "Data Only"; break;
-                    default: access = "Restricted";
-                }
-                return `[SWITCH CASE ROUTER]\nUser Role: ${role}\nPermission Level: ${access}\nPath: Routing to ${role} dashboard...`;
-            }
-        };
-
-        function runModule(key) {
-            const out = document.getElementById('terminal-out');
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            if(key === 'calc') {
-                out.innerText = "> Calculator Mode Active.";
-                document.getElementById('mod-title').innerText = "Advanced Calculator";
-            } else {
-                out.innerText = "> " + modules[key]();
-                document.getElementById('mod-title').innerText = key.toUpperCase() + " LOGIC MODULE";
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

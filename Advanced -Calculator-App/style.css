@@ -1,37 +1,103 @@
-table{
-    color: #fff;
-    text-align: center;
-    border-collapse: collapse;
-    font: normal 3em Arial, Helvetica, san-serif;
+:root { 
+    --gold: #C5A059; 
+    --dark: #0a0a0c; 
+    --gray: #1a1a1a; 
+    --glass: rgba(255, 255, 255, 0.03);
 }
 
-tr{
-    height: 16.02vh;
-    background-color: #4e494d;
+body { 
+    background: #000; 
+    color: #eee; 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
+    display: flex; 
+    height: 100vh; 
+    overflow: hidden; 
 }
 
-td{
-    width: 25vw;
-    border: 1px solid #4e494d;
+.sidebar { 
+    width: 280px; 
+    background: var(--dark); 
+    border-right: 1px solid var(--gold); 
+    padding: 25px; 
+    display: flex; 
+    flex-direction: column; 
 }
 
-#inputBox{
-    background-color: #4e494d;
-    text-align: right;
-    width: 100%;
-    font-size: 2em;
-    color: #fff;
-    border: 0px;
+.nav-btn { 
+    padding: 12px; 
+    margin-bottom: 8px; 
+    background: #111; 
+    border: 1px solid #333; 
+    color: #aaa; 
+    cursor: pointer; 
+    text-align: left; 
+    transition: 0.3s; 
 }
 
-.digitButton{
-    background-color: #807e80;
+.nav-btn:hover, .active { 
+    background: var(--gold); 
+    color: var(--dark); 
+    font-weight: bold; 
+    border-color: var(--gold); 
 }
 
-.operatorButton{
-    background-color: #ff9e06;
+.main { 
+    flex: 1; 
+    padding: 40px; 
+    overflow-y: auto; 
+    background: radial-gradient(circle at top right, #111, #000); 
 }
 
-.ACButton{
-    background-color: #656165;
+/* Glassmorphism Polish */
+.calc-ui { 
+    width: 320px; 
+    background: var(--glass); 
+    backdrop-filter: blur(10px);
+    padding: 25px; 
+    border-radius: 15px; 
+    border: 1px solid rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.screen { 
+    background: rgba(0,0,0,0.5); 
+    color: var(--gold); 
+    padding: 20px; 
+    text-align: right; 
+    font-size: 2rem; 
+    margin-bottom: 20px; 
+    border-radius: 8px; 
+    border: 1px solid var(--gold); 
+}
+
+.calc-grid { 
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 10px; 
+}
+
+.calc-btn { 
+    padding: 20px; 
+    background: #222; 
+    border: 1px solid #444; 
+    color: white; 
+    font-size: 1.1rem;
+    cursor: pointer; 
+    border-radius: 4px;
+}
+
+.calc-btn.op { background: var(--gold); color: black; font-weight: bold; border: none; }
+.calc-btn.clr { background: #8e2121; border: none; }
+.calc-btn.wide { grid-column: span 2; }
+
+.terminal { 
+    background: #000; 
+    border-left: 4px solid var(--gold); 
+    padding: 20px; 
+    font-family: 'Consolas', monospace; 
+    color: #00ff00; 
+    margin-top: 20px; 
+    min-height: 150px; 
+    white-space: pre-wrap; 
 }
