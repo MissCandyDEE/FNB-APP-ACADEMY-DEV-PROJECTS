@@ -1,0 +1,33 @@
+:root { --gold: #C5A059; --void: #050505; --panel: #0d0d0d; }
+
+body { background: var(--void); color: #ccc; font-family: 'Georgia', serif; margin: 0; overflow: hidden; }
+
+.sanctum-ui { display: flex; height: 100vh; }
+
+.sidebar { width: 280px; background: #000; border-right: 1px solid #222; padding: 40px 20px; }
+
+.sigil { font-size: 3.5rem; color: var(--gold); text-align: center; margin-bottom: 40px; 
+         text-shadow: 0 0 15px rgba(197, 160, 89, 0.5); animation: pulse 4s infinite; }
+
+@keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+nav button { display: block; width: 100%; background: none; border: none; color: #666; 
+             padding: 15px 0; text-align: left; cursor: pointer; letter-spacing: 2px; text-transform: uppercase; font-size: 0.75rem; }
+
+nav button:hover { color: var(--gold); padding-left: 10px; transition: 0.4s; }
+
+.viewport { flex: 1; padding: 60px; overflow-y: auto; background: radial-gradient(circle, #111, #000); }
+
+h1 { color: var(--gold); letter-spacing: 5px; margin-bottom: 10px; }
+
+.content-display { line-height: 1.8; font-size: 1.1rem; max-width: 700px; }
+
+.tag { color: var(--gold); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 0; }
+
+.tool-card { margin-top: 40px; border-top: 1px solid #222; padding-top: 20px; }
+
+input { width: 100%; padding: 15px; background: #111; border: 1px solid var(--gold); color: white; margin: 15px 0; }
+
+.tool-card button { background: var(--gold); color: black; border: none; padding: 15px 30px; font-weight: bold; cursor: pointer; width: 100%; }
+
+.result-box { margin-top: 20px; border-left: 3px solid var(--gold); padding-left: 20px; font-style: italic; }

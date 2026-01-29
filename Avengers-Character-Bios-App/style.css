@@ -1,44 +1,61 @@
-.gallery img{
-    width: 100%;
+:root { 
+    --gold: #C5A059; 
+    --dark: #050505; 
+    --card-bg: #111111; 
 }
 
-h2{
-    font-family: Impact, fantasy;
-    text-align: center;
-    font-size: 30px;
-    color: cornflowerblue;
-    font-style: italic;
+body { 
+    background: var(--dark); 
+    color: #eee; 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
 }
 
-h4{
-    font-family: Impact, fantasy;
-    font-size: 20px;
-    font-style: italic;
-    color: cornflowerblue;
+.hero-header { 
+    text-align: center; 
+    padding: 80px 20px; 
+    border-bottom: 1px solid var(--gold); 
+    background: linear-gradient(to bottom, #111, var(--dark));
 }
 
-p{
-    font-family: Helvetica, sans-serif;
+.hero-header h1 { 
+    letter-spacing: 8px; 
+    color: var(--gold); 
+    font-size: 2.5rem; 
+    margin: 0;
 }
 
-#menu{
-    width: 100%;
-    height: 40px;
-        background-color: cornflowerblue;
-    padding-top: 12px;
+.hero-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 30px; 
+    padding: 60px 20px; 
+    max-width: 1200px; 
+    margin: 0 auto;
 }
 
-#menu a{
-    color: #ffffff;
-    font-family: Helvetica, sans-serif;
-    font-size: 18px;
-    text-decoration: none;
-    font-weight: 800;
-    
-    padding-left: 20px;
-    padding-right: 20px;
+.hero-card { 
+    background: var(--card-bg); 
+    border: 1px solid #222; 
+    padding: 30px; 
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    position: relative;
+    overflow: hidden;
 }
 
-#menu a:hover{
-    color: #5077bd;
+.hero-card:hover { 
+    border-color: var(--gold); 
+    transform: translateY(-10px); 
+    box-shadow: 0 10px 30px rgba(197, 160, 89, 0.1);
 }
+
+.gold-text { color: var(--gold); font-family: 'Impact', sans-serif; letter-spacing: 2px; margin-top: 0; }
+.specialty { color: #888; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; }
+.bio-text { font-size: 0.9rem; color: #bbb; margin: 15px 0; line-height: 1.6; }
+
+.stat-bar { background: #222; height: 6px; border-radius: 3px; margin: 8px 0 15px; overflow: hidden; }
+.stat-fill { background: var(--gold); height: 100%; box-shadow: 0 0 10px rgba(197, 160, 89, 0.5); }
+label { font-size: 0.7rem; color: #666; font-weight: bold; }
+
+.back-link { color: var(--gold); text-decoration: none; font-size: 0.8rem; letter-spacing: 1px; border: 1px solid var(--gold); padding: 10px 20px; transition: 0.3s; }
+.back-link:hover { background: var(--gold); color: black; }

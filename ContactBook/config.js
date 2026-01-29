@@ -1,16 +1,15 @@
-// 🌍 Base URL for your hosted ContactBook API
-let rootPath = "https://mysite.itvarsity.org/api/ContactBook/";
+const rootPath = "https://mysite.itvarsity.org/api/ContactBook/";
 
-// 🔑 Get stored API key from localStorage or redirect to enter-api-key page
-let apiKey = checkApiKey();
+// Logic to check if the user is already "Logged In"
+function getStoredKey() {
+    return localStorage.getItem("apiKey");
+}
 
-function checkApiKey() {
-    const key = localStorage.getItem("apiKey");
+function persistKey(key) {
+    localStorage.setItem("apiKey", key);
+}
 
-    if (!key) {
-        // Redirect user to enter their API key
-        window.open("enter-api-key.html", "_self");
-    }
-
-    return key;
+function clearKey() {
+    localStorage.removeItem("apiKey");
+    location.reload(); // Force refresh to Auth screen
 }

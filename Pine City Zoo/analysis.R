@@ -1,22 +1,30 @@
-# Advanced Statistical Analysis for Pine City Zoo
-# Demonstrating Data Analytics skills 
+# Pine City Zoo | Data Intelligence & Population Analysis
+# Purpose: Generate telemetry visualization for the Master Dashboard
 
-species <- c("Lions", "Tigers", "Bears", "Elephants", "Giraffes", "Zebras")
-population <- c(12, 8, 15, 6, 10, 25)
-health_index <- c(0.85, 0.78, 0.92, 0.88, 0.95, 0.82)
+# 1. Prepare Data
+species <- c("Lions", "Gorillas", "Elephants", "Pandas", "Gemsbok")
+population <- c(12, 8, 15, 6, 22)
+health_score <- c(0.85, 0.92, 0.88, 1.0, 0.75)
 
-# Create a data frame (Essential R Skill)
-zoo_data <- data.frame(species, population, health_index)
+# 2. Create Data Frame
+zoo_metrics <- data.frame(species, population, health_score)
 
-# Calculate weighted health average
-weighted_health <- sum(zoo_data$population * zoo_data$health_index) / sum(zoo_data$population)
+# 3. Open Graphics Device (This creates the PNG file)
+png("zoo_health_analysis.png", width=800, height=600)
 
-# Generate a High-Quality Plot for the Portfolio
-png("zoo_health_analysis.png")
-barplot(zoo_data$population, names.arg=zoo_data$species, 
-        col=c("#C5A059", "#2C2C2C"), 
-        main="Species Demographic & Population Density",
-        ylab="Number of Animals", las=2)
+# 4. Generate the Visualization
+# Using #C5A059 (Your Gold) and #1a1a1a (Your Dark)
+barplot(zoo_metrics$population, 
+        names.arg=zoo_metrics$species, 
+        col="#C5A059", 
+        border="#1a1a1a",
+        main="Species Population Density Analysis",
+        xlab="Species Classification",
+        ylab="Total Headcount",
+        cex.main=1.5,
+        col.main="#C5A059")
+
+# 5. Save and Close the file
 dev.off()
 
-print(paste("Total Zoo Health Index:", round(weighted_health, 2)))
+print("Telemetric Chart Generated: zoo_health_analysis.png")
