@@ -4,36 +4,33 @@
     --silk-white: #f5f5f7;
 }
 
-* { box-sizing: border-box; }
-
-body { 
-    margin: 0; 
-    font-family: 'Inter', sans-serif; 
-    background: var(--luxe-black); 
-    color: var(--silk-white);
-    overflow-x: hidden;
+/* Added Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
 }
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Inter', sans-serif; background: var(--luxe-black); color: var(--silk-white); overflow-x: hidden; }
 
 /* Navigation */
 .floating-nav {
-    position: sticky; top: 0; z-index: 1000;
-    display: flex; justify-content: space-between; align-items: center;
+    position: sticky; top: 0; z-index: 1000; display: flex; justify-content: space-between; align-items: center;
     padding: 15px 8%; background: rgba(8, 8, 8, 0.95); backdrop-filter: blur(10px);
 }
 .nav-logo { font-family: 'Playfair Display', serif; font-size: 0.9rem; letter-spacing: 2px; }
-.nav-links a { color: var(--silk-white); text-decoration: none; margin-left: 30px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; }
+.nav-links a { color: var(--silk-white); text-decoration: none; margin-left: 30px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+.nav-links a:hover { color: var(--pastel-cream); }
 
 /* Hero */
 .hub-hero {
-    height: 60vh; 
-    display: flex; align-items: center; justify-content: center; position: relative;
+    height: 60vh; display: flex; align-items: center; justify-content: center; position: relative;
     background: url('images/hero-swans.jpg') no-repeat center center/cover;
 }
 .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
 .main-logo { font-family: 'Playfair Display', serif; font-size: 3.5rem; position: relative; z-index: 2; margin: 0; }
 .tagline { color: var(--pastel-cream); font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase; position: relative; z-index: 2; margin-top: 10px; }
 
-/* Content Proportion */
+/* Content Layout */
 .about-section { padding: 80px 10%; }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .about-image img { max-width: 100%; max-height: 400px; object-fit: contain; }
@@ -47,11 +44,21 @@ body {
     margin-top: 25px; 
 }
 
+/* Ventures */
 .ventures-section { padding: 60px 10%; }
 .venture-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 .v-img-wrapper { height: 350px; overflow: hidden; }
-.v-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-.v-link { color: var(--pastel-cream); text-decoration: none; border-bottom: 1px solid var(--pastel-cream); font-size: 0.8rem; }
+.v-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.venture-box:hover .v-img-wrapper img { transform: scale(1.05); }
+
+.v-link { 
+    color: var(--pastel-cream); 
+    text-decoration: none; 
+    border-bottom: 1px solid var(--pastel-cream); 
+    font-size: 0.8rem; 
+    transition: all 0.3s ease; 
+}
+.v-link:hover { letter-spacing: 1px; opacity: 0.7; }
 
 /* Footer */
 .hub-footer {
@@ -68,3 +75,12 @@ body {
 .signature { font-size: 0.6rem; text-transform: uppercase; color: var(--pastel-cream); letter-spacing: 1px; }
 .footer-bottom-row { text-align: center; }
 .copyright { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.5; }
+
+/* Added Mobile Responsiveness */
+@media (max-width: 768px) {
+    .about-grid, .venture-container { grid-template-columns: 1fr; gap: 30px; }
+    .main-logo { font-size: 2.5rem; }
+    .about-section { padding: 40px 5%; }
+    .floating-nav { padding: 10px 5%; }
+    .nav-links a { margin-left: 15px; font-size: 0.6rem; }
+}
